@@ -15,8 +15,4 @@ public:
 	virtual void Step(u64 x, u64 y, World* world) override = 0;
 
 	virtual CellType GetType() = 0;
-
-	virtual int GetXVelocity() override { return m_xVel; }
-
-	virtual int GetYVelocity() override { return m_yVel; }
 };				   

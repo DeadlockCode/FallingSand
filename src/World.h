@@ -11,7 +11,6 @@
 
 #include "cell/Cell.h"
 
-
 class World {
 private:
 	const u64 m_width;
@@ -52,11 +51,7 @@ public:
 
 	void Update();
 
-	bool Down(u64 x, u64 y);
-	bool DiagonallyDown(u64 x, u64 y);
-	bool Side(u64 x, u64 y);
-
-	void Move(u64 x, u64 y, int xVel, int yVel);
+	void Move(u64 xFrom, u64 yFrom, int& xVel, int& yVel);
 
 	bool IsVoid(u64 x, u64 y) {
 		return InBounds(x, y) && m_cells[GetIndex(x, y)]->IsVoid();
@@ -85,9 +80,5 @@ public:
 	CellType GetType(u64 x, u64 y) {
 		return m_cells[GetIndex(x, y)]->GetType();
 	}
-
-	int GetXVelocity(u64 x, u64 y) { return m_cells[GetIndex(x, y)]->GetXVelocity(); }
-
-	int GetYVelocity(u64 x, u64 y) { return m_cells[GetIndex(x, y)]->GetYVelocity(); }
 };
 

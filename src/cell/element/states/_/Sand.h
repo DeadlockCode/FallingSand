@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../Solid.h"
+#include "../MultiSolid.h"
 
-class Sand : public Solid
+class Sand : public MultiSolid
 {
 public:
 

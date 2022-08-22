@@ -1,8 +1,5 @@
 #include "World.h"
 
-#include "cell/element/states/_/Sand.h"
-#include "cell/void/Void.h"
-
 World::World(u64 width, u64 height)
 	: m_width(width), m_height(height)
 {
@@ -39,61 +36,17 @@ void World::Update()
 	}
 }
 
-bool World::Down(u64 x, u64 y) {
-
-	bool down = IsVoid(x, y - 1);
-
-	if (down) {
-		SwapCells(x, y, x, y - 1);
-	}
-
-	return down;
-}
-
-bool World::DiagonallyDown(u64 x, u64 y) {
-	bool left = IsVoid(x - 1, y - 1);
-	bool right = IsVoid(x + 1, y - 1);
-
-	if (left && right) {
-		left = m_rng() & 1;
-		right = !left;
-	}
-
-	if (left) SwapCells(x, y, x - 1, y - 1);
-	else if (right) SwapCells(x, y, x + 1, y - 1);
-
-	return left || right;
-}
-
-bool World::Side(u64 x, u64 y) {
-	bool left = IsVoid(x - 1, y);
-	bool right = IsVoid(x + 1, y);
-
-	if (left && right) {
-		left = m_rng() & 1;
-		right = !left;
-	}
-
-	if (left) SwapCells(x, y, x - 1, y);
-	else if (right) SwapCells(x, y, x + 1, y);
-
-	return left || right;
-}
-
-void World::Move(u64 xFrom, u64 yFrom, int xVel, int yVel) {
+void World::Move(u64 xFrom, u64 yFrom, int& xVel, int& yVel) {
 	if ((xVel == 0) && (yVel == 0)) return;
 
-	int x1 = xFrom, y1 = yFrom, x2 = xFrom + xVel, y2 = yFrom + yVel;
+	bool xVelIsLarger = std::abs(xVel) > std::abs(yVel);
+	bool xVelyVelSame = std::abs(xVel) == std::abs(yVel);
 
-	int xDiff = x1 - x2;
-	int yDiff = y1 - y2;
-	bool xDiffIsLarger = std::abs(xDiff) > std::abs(yDiff);
+	int xModifier = xVel > 0 ? 1 : -1;
+	int yModifier = yVel > 0 ? 1 : -1;
 
-	int xModifier = xDiff < 0 ? 1 : -1;
-	int yModifier = yDiff < 0 ? 1 : -1;
-
-	int max = std::max(std::abs(xDiff), std::abs(yDiff));
-	int min = std::min(std::abs(xDiff), std::abs(yDiff));
+	int max = std::max(std::abs(xVel), std::abs(yVel));
+	int min = std::min(std::abs(xVel), std::abs(yVel));
 	float slope = (min == 0 || max == 0) ? 0 : ((float)(min + 1) / (max + 1));
 
 	int smallerCount;
@@ -102,7 +55,7 @@ void World::Move(u64 xFrom, u64 yFrom, int xVel, int yVel) {
 	for (int largerCount = 1; largerCount <= max; largerCount++) {
 		smallerCount = (int)std::floor(largerCount * slope);
 		int yIncrease, xIncrease;
-		if (xDiffIsLarger) {
+		if (xVelIsLarger) {
 			xIncrease = largerCount;
 			yIncrease = smallerCount;
 		}
@@ -110,15 +63,25 @@ void World::Move(u64 xFrom, u64 yFrom, int xVel, int yVel) {
 			yIncrease = largerCount;
 			xIncrease = smallerCount;
 		}
-		int yNext = y1 + (yIncrease * yModifier);
-		int xNext = x1 + (xIncrease * xModifier);
-		if (IsVoid(xNext, yNext)) {
+		u64 xNext = xFrom + ((u64)xIncrease * xModifier);
+		u64 yNext = yFrom + ((u64)yIncrease * yModifier);
+		if (IsVoid(xNext, yNext) || (IsLiquid(xNext, yNext) && IsSolid(xTo, yTo)) || (IsGas(xNext, yNext) && IsSolid(xTo, yTo)) || (IsGas(xNext, yNext) && IsLiquid(xTo, yTo))) {
+			SwapCells(xTo, yTo, xNext, yNext);
 			xTo = xNext;
 			yTo = yNext;
 		}
 		else {
+			if (xVelyVelSame) {
+				xVel = 0;
+				yVel = 0;
+			}
+			else if (xVelIsLarger) {
+				xVel = 0;
+			}
+			else {
+				yVel = 0;
+			}
 			break;
 		}
 	}
-	SwapCells(xFrom, yFrom, xTo, yTo);
 }

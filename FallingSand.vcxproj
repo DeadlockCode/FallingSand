@@ -155,11 +155,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\cell\element\states\_\Ember.cpp" />
+    <ClCompile Include="src\cell\element\states\_\Smoke.cpp" />
+    <ClCompile Include="src\cell\element\states\_\Fire.cpp" />
     <ClCompile Include="src\cell\bedrock\Bedrock.cpp" />
     <ClCompile Include="src\cell\Cell.cpp" />
     <ClCompile Include="src\cell\element\Element.cpp" />
+    <ClCompile Include="src\cell\element\states\MultiSolid.cpp" />
     <ClCompile Include="src\cell\element\states\_\Sand.cpp" />
-    <ClCompile Include="src\cell\element\states\Solid.cpp" />
+    <ClCompile Include="src\cell\element\states\MonoSolid.cpp" />
     <ClCompile Include="src\cell\element\states\Liquid.cpp" />
     <ClCompile Include="src\cell\element\states\Gas.cpp" />
     <ClCompile Include="src\cell\void\Void.cpp" />
@@ -183,16 +187,22 @@
     <ClCompile Include="src\engine\Texture.cpp" />
     <ClCompile Include="src\World.cpp" />
     <ClCompile Include="src\cell\element\states\_\Water.cpp" />
+    <ClCompile Include="src\cell\element\states\_\Wood.cpp" />
+    <ClCompile Include="src\cell\element\states\_\Steam.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\default.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\cell\element\states\_\Ember.h" />
+    <ClInclude Include="src\cell\element\states\_\Smoke.h" />
+    <ClInclude Include="src\cell\element\states\_\Fire.h" />
     <ClInclude Include="src\cell\bedrock\Bedrock.h" />
     <ClInclude Include="src\cell\Cell.h" />
     <ClInclude Include="src\cell\element\Element.h" />
+    <ClInclude Include="src\cell\element\states\MultiSolid.h" />
     <ClInclude Include="src\cell\element\states\_\Sand.h" />
-    <ClInclude Include="src\cell\element\states\Solid.h" />
+    <ClInclude Include="src\cell\element\states\MonoSolid.h" />
     <ClInclude Include="src\cell\element\states\Liquid.h" />
     <ClInclude Include="src\cell\element\states\Gas.h" />
     <ClInclude Include="src\cell\void\Void.h" />
@@ -218,6 +228,8 @@
     <ClInclude Include="src\xorshift.h" />
     <ClInclude Include="src\World.h" />
     <ClInclude Include="src\cell\element\states\_\Water.h" />
+    <ClInclude Include="src\cell\element\states\_\Wood.h" />
+    <ClInclude Include="src\cell\element\states\_\Steam.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,2 @@
-﻿  Liquid.cpp
-C:\Projects\Programming\FallingSand\src\cell\element\states\Liquid.cpp(21,10): warning C4244: 'initializing': conversion from 'u64' to 'int', possible loss of data
-C:\Projects\Programming\FallingSand\src\cell\element\states\Liquid.cpp(22,10): warning C4244: 'initializing': conversion from 'u64' to 'int', possible loss of data
+﻿  Gas.cpp
   FallingSand.vcxproj -> C:\Projects\Programming\FallingSand\bin\x64\Debug\FallingSand.exe

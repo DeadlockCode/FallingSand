@@ -12,6 +12,11 @@ enum class CellType : u8 {
 	BEDROCK,
 	SAND,
 	WATER,
+	WOOD,
+	FIRE,
+	SMOKE,
+	EMBER,
+	STEAM,
 };
 
 class Cell {
@@ -39,10 +44,4 @@ public:
 	virtual bool IsSolid() { return false; }
 
 	bool IsSleeping() { return m_sleeping; }
-
-	virtual u8 GetDensity() { return 0; }
-	virtual void SetDensity(u8 value) {}
-
-	virtual int GetXVelocity() { return 0; }
-	virtual int GetYVelocity() { return 0; }
 };									   
