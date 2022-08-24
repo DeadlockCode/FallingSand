@@ -3,17 +3,63 @@
 #include "../../../../World.h"
 
 void Spread(u64 x, u64 y, World* world) {
-	if (world->InBounds(x, y)) { // Left
-		CellType type = world->GetType(x, y);
+	if (world->InBounds(x - 1, y)) { // Left
+		CellType type = world->GetType(x - 1, y);
 
 		if (type == CellType::WOOD) {
 			if ((world->m_rng() % 100) < 10) {
-				world->CreateCell(x, y, CellType::FIRE);
+				world->CreateCell(x - 1, y, CellType::FIRE);
 			}
 		}
 		else if (type == CellType::WATER) {
 			if ((world->m_rng() % 100) < 50) {
-				world->CreateCell(x, y, CellType::STEAM);
+				world->CreateCell(x - 1, y, CellType::STEAM);
+				world->CreateCell(x, y, CellType::SMOKE);
+			}
+		}
+	}
+	if (world->InBounds(x, y - 1)) { // Down
+		CellType type = world->GetType(x, y - 1);
+
+		if (type == CellType::WOOD) {
+			if ((world->m_rng() % 100) < 10) {
+				world->CreateCell(x, y - 1, CellType::FIRE);
+			}
+		}
+		else if (type == CellType::WATER) {
+			if ((world->m_rng() % 100) < 50) {
+				world->CreateCell(x, y - 1, CellType::STEAM);
+				world->CreateCell(x, y, CellType::SMOKE);
+			}
+		}
+	}
+	if (world->InBounds(x + 1, y)) { // Right
+		CellType type = world->GetType(x + 1, y);
+
+		if (type == CellType::WOOD) {
+			if ((world->m_rng() % 100) < 10) {
+				world->CreateCell(x + 1, y, CellType::FIRE);
+			}
+		}
+		else if (type == CellType::WATER) {
+			if ((world->m_rng() % 100) < 50) {
+				world->CreateCell(x + 1, y, CellType::STEAM);
+				world->CreateCell(x, y, CellType::SMOKE);
+			}
+		}
+	}
+	if (world->InBounds(x, y + 1)) { // Up
+		CellType type = world->GetType(x, y + 1);
+
+		if (type == CellType::WOOD) {
+			if ((world->m_rng() % 100) < 10) {
+				world->CreateCell(x, y + 1, CellType::FIRE);
+			}
+		}
+		else if (type == CellType::WATER) {
+			if ((world->m_rng() % 100) < 50) {
+				world->CreateCell(x, y + 1, CellType::STEAM);
+				world->CreateCell(x, y, CellType::SMOKE);
 			}
 		}
 	}
@@ -39,8 +85,5 @@ void Fire::Step(u64 x, u64 y, World* world)
 
 
 	// Spread
-	Spread(x - 1, y, world);
-	Spread(x, y - 1, world);
-	Spread(x + 1, y, world);
-	Spread(x, y + 1, world);
+	Spread(x, y, world);
 }
