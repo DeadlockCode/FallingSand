@@ -2,6 +2,8 @@
 bin/
 intermediate/
 
+
+
 ### C++ ###
 # Prerequisites
 *.d
@@ -54,22 +56,6 @@ intermediate/
 
 # Mono auto generated files
 mono_crash.*
-
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Ww][Ii][Nn]32/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
-[Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -436,3 +422,8 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,c++
+
+# Reinclude of deps
+!deps/GLEW/lib/Release/x64/glew32.lib
+!deps/GLEW/lib/Release/x64/glew32s.lib
+!deps/GLFW/lib-vc2019/glfw3.lib
