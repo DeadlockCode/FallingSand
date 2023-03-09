@@ -3,26 +3,52 @@
 
 World world(256, 256);
 
-
-int brushRadius = 5;
-static void brush(u64 x, u64 y, CellType type) {
-	for (int xa = -brushRadius; xa <= brushRadius; xa++) {
-		for (int ya = -brushRadius; ya <= brushRadius; ya++) {
-			if (world.InBounds(x + xa, y + ya) && std::sqrt(xa * xa + ya * ya) < brushRadius) {
-				if (type == CellType::VOID) {
-					world.CreateCell(x + xa, y + ya, type);
+void horizontal_line(u64 x0, u64 x1, u64 y, CellType type) {
+	for (u64 x = x0; x < x1; x++) {
+		if (world.InBounds(x, y)) {
+			if (type == CellType::VOID) {
+				world.CreateCell(x, y, type);
+			}
+			else if (world.IsVoid(x, y)) {
+				if (type == CellType::FIRE || type == CellType::EMBER) {
+					if ((world.m_rng() % 100) < 5)
+						world.CreateCell(x, y, type);
 				}
-				else if (world.IsVoid(x + xa, y + ya)) {
-					if (type == CellType::FIRE || type == CellType::EMBER) {
-						if ((world.m_rng() % 100) < 5)
-							world.CreateCell(x + xa, y + ya, type);
-					}
-					else {
-						world.CreateCell(x + xa, y + ya, type);
-					}
+				else {
+					world.CreateCell(x, y, type);
 				}
 			}
 		}
+	}
+}
+
+void circle_helper(u64 x, u64 y, u64 i, u64 j, CellType type) {
+	horizontal_line(x - i, x + i, y + j, type);
+	horizontal_line(x - i, x + i, y - j, type);
+	horizontal_line(x - j, x + j, y + i, type);
+	horizontal_line(x - j, x + j, y - i, type);
+}
+
+int brushRadius = 5;
+static void brush(u64 x, u64 y, CellType type) {
+	float i = 0.0;
+	float j = brushRadius;
+	float d = 3.0 - 2.0 * brushRadius;
+
+	circle_helper(x, y, i, j, type);
+
+	while (i <= j) {
+		if (d <= 0.0) {
+			d += (4.0 * i) + 6.0;
+		}
+		else
+		{
+			d += (4.0 * i) - (4.0 * j) + 10.0;
+			j -= 1.0;
+		}
+		i += 1.0;
+
+		circle_helper(x, y, i, j, type);
 	}
 }
 

@@ -1,2 +1,11 @@
-﻿  Fire.cpp
+﻿  main.cpp
+C:\Projects\Programming\FallingSand\src\main.cpp(35,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Projects\Programming\FallingSand\src\main.cpp(36,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Projects\Programming\FallingSand\src\main.cpp(38,25): warning C4244: 'argument': conversion from 'float' to 'u64', possible loss of data
+C:\Projects\Programming\FallingSand\src\main.cpp(38,22): warning C4244: 'argument': conversion from 'float' to 'u64', possible loss of data
+C:\Projects\Programming\FallingSand\src\main.cpp(42,24): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\Programming\FallingSand\src\main.cpp(46,37): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Projects\Programming\FallingSand\src\main.cpp(51,26): warning C4244: 'argument': conversion from 'float' to 'u64', possible loss of data
+C:\Projects\Programming\FallingSand\src\main.cpp(51,23): warning C4244: 'argument': conversion from 'float' to 'u64', possible loss of data
+C:\Projects\Programming\FallingSand\src\main.cpp(128,13): warning C4244: 'argument': conversion from 'u64' to 'u32', possible loss of data
   FallingSand.vcxproj -> C:\Projects\Programming\FallingSand\bin\x64\Debug\FallingSand.exe
